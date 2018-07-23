@@ -1,0 +1,54 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        in_memory:
+            memory: ~
+            
+            
+        our_db_provider:
+            entity:
+                class: AppBundle:User
+                
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                default_target_path: default_security_target
+                always_use_default_target_path: true
+                use_referer: true
+                target_path_parameter: redirect_url
+                failure_path: login_failure
+            logout:
+                path: /logout
+                target: /
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                # por defecto, esta funcionalidad está disponible en una
+                # checkbox en el formulario de login, descomenta la
+                # siguiente línea para activarlo siempre.
+                #always_remember_me: true
+                
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            #form_login: ~

@@ -1,0 +1,14 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+register:
+    path:     /register/
+    defaults: { _controller: AppBundle:Registration:register }
+    
+
+login_check:
+    path:     /login_check/
+    defaults: { _controller: AppBundle:Registration:register }
+    
+        
