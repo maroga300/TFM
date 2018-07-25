@@ -1,4 +1,7 @@
 {# app/Resources/views/security/login.html.twig #}
+{% extends "layout.html.twig" %}
+
+{% block content %}
 {% if error %}
     <div>{{ error.message }}</div>
 {% endif %}
@@ -12,6 +15,6 @@
 
     <input type="checkbox" id="remember_me" name="_remember_me" checked />
     <label for="remember_me">Keep me logged in</label>
-
     <input type="submit" name="login" />
 </form>
+{% endblock %}
