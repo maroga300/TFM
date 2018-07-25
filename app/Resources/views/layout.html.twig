@@ -8,7 +8,9 @@
         <meta name="description" content="">
         <meta name="author" content="">
         
-        
+        {% stylesheets '@AppBundle/Resources/public/css/*' filter='cssrewrite' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
         
     </head>
     <body>
@@ -17,7 +19,9 @@
         </div>
         {% include 'footer.html.twig' %}
         
-        
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
         
     </body>
 </html>
