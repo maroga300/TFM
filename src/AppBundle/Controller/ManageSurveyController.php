@@ -41,13 +41,9 @@ class ManageSurveyController extends Controller
             return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
         }
     */   
-        $active = '';
-        
-        
-        
-        
+        //$active = TRUE;
         $survey = new Survey();
-        $survey->setIsActive($active);
+        //$survey->setIsActive($active);
         $survey->setCreationDate(new \DateTime());
 
         $form = $this->createFormBuilder($survey)
