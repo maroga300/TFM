@@ -1,0 +1,36 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="page-header">          
+        <h1>{% trans %}Gestionar proyectos{% endtrans %}</h1>
+    </div>  
+    <div class="page-content">
+          <table id="datetable">
+              <thead>
+                <tr>
+                  <th>{%trans%}Nombre{%endtrans%}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for survey in surveys %}
+                <tr>
+                    <td> {{survey.name}} </td>
+                    <td> {{survey.description}} </td>
+                    <td> {{survey.isActive}} </td>
+                    <td> {{survey.creationDate|date('d/m/y')}} </td>
+                    <td>
+                       
+                    <!--    <a href="{#{ path('es_edit_survey', {'id': survey.id})}}"> Modificar </a> |
+                    -->
+                    <!--    <a href="{{ path('iw_easy_survey_delete_project', {'id': survey.id})}}" onclick="return confirm('¿Esta seguro? Si borra la categoría perderá todos los cuestionarios y datos asociados a ellos')"> Borrar </a> |
+                    -->
+                    <!--   <a href="{{ path('iw_easy_survey_collaborator', {'id': survey.id})}#}"> Colaboradores </a>
+                     -->
+                     
+                     </td>
+                </tr>
+                {% endfor %}
+    </div>
+{% endblock %}

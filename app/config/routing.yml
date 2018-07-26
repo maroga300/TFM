@@ -6,9 +6,12 @@ register:
     path:     /register/
     defaults: { _controller: AppBundle:Registration:register }
     
-
 login_check:
     path:     /login_check/
     defaults: { _controller: AppBundle:Registration:register }
+
+show_all:
+    path:     /showAll/
+    defaults: { _controller: AppBundle:ManageSurvey:show }
     
         

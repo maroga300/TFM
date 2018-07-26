@@ -1,0 +1,25 @@
+AppBundle\Entity\Survey:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\SurveyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            column: Name
+        description:
+            type: string
+            length: 255
+            column: Description
+        isActive:
+            type: integer
+        creationDate:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks: {  }
