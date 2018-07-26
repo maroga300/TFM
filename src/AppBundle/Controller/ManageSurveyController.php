@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -41,17 +42,17 @@ class ManageSurveyController extends Controller
             return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
         }
     */   
-        //$active = TRUE;
+        $active = TRUE;
         $survey = new Survey();
-        //$survey->setIsActive($active);
+        $survey->setIsActive($active);
         $survey->setCreationDate(new \DateTime());
 
         $form = $this->createFormBuilder($survey)
-            ->add('name', TextType::class,array('label'=>'Nombre del nuevo Proyecto','required'=>true))
-            ->add('description', TextType::class)
-            ->add('isActive', CheckboxType::class, array('label'    => 'activo?','required' => false))
+            ->add('name', TextType::class,array('label'=>'Nombre: ','required'=>true))
+            ->add('description', TextType::class,array('label'=>'Descripción: '))
+            ->add('isActive', CheckboxType::class, array('label' => '¿Activo?: ','required' => false))
             ->add('creationDate', DateType::class)
-            ->add('save', SubmitType::class, array('label' => 'Nueva encuesta'))
+            ->add('save', SubmitType::class, array('label' => 'Crear'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -74,5 +75,73 @@ class ManageSurveyController extends Controller
             'form' => $form->createView(),
         ));
         
+    }
+    
+    /**
+     * Función para la edición de encuestas
+     *
+     * @param 
+     *
+     * @return 
+     */
+    public function editAction($id, Request $request){
+    /*    $error = '';
+     * 
+    //TO-DO: Comprobación Usuario logueado.
+        if (!$this->isLogin()) {            
+            return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
+        }
+    */   
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('AppBundle:Survey')->find($id);
+        
+
+        $form = $this->createFormBuilder($survey)
+            ->add('name', TextType::class,array('label'=>'Nombre: ','required'=>true,'data'=>$survey->getName()))
+            ->add('description', TextType::class,array('label'=>'Descripción: ','data'=>$survey->getDescription()))
+            ->add('isActive', CheckboxType::class, array('label' => '¿Activo?: ','required' => false,'data'=>$survey->getIsActive()))
+            ->add('creationDate', DateType::class, array('label' => 'Fecha: ','required' => false,'data'=>$survey->getCreationDate()))
+            ->add('save', SubmitType::class, array('label' => 'Modificar'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            //$form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $formData = $form->getData();
+            
+            $survey->setName($formData->getName());
+            $survey->setDescription($formData->getDescription());
+            $survey->setIsActive($formData->getIsActive());
+            $survey->setCreationDate($formData->getCreationDate());
+            
+            //Guardamos en la Base de datos
+            $em->persist($survey);
+            $em->flush();    
+
+            return $this->redirectToRoute('show_all');
+        }
+
+        return $this->render('surveys/create.html.twig', array(
+            'form' => $form->createView(),
+        ));
+        
+    }
+    
+     /**
+     * Función para borrar encuestas
+     *
+     * @param 
+     *
+     * @return 
+     */
+    public function deleteAction($id, Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('AppBundle:Survey')->find($id);
+        $em->remove($survey);
+        $em->flush();
+        return $this->redirectToRoute('show_all');
     }
 }

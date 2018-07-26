@@ -18,4 +18,10 @@ create:
     path:     /create/
     defaults: { _controller: AppBundle:ManageSurvey:create }
     
-        
+delete: 
+    path:     /delete/{id}
+    defaults: { _controller: AppBundle:ManageSurvey:delete }
+    
+edit: 
+    path:     /edit/{id}
+    defaults: { _controller: AppBundle:ManageSurvey:edit }        

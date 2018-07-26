@@ -1,11 +1,12 @@
 {% extends "layout.html.twig" %}
 
 {% block content %}
-
-    <div class="page-header">          
-        <h1>{% trans %}Gestionar proyectos{% endtrans %}</h1>
-    </div>  
-    <div class="page-content">
+    
+        <div class="page-header">          
+            <h1>{% trans %}Gestionar proyectos{% endtrans %}</h1>
+        </div>  
+        
+        <div class="page-content">
           <a href="{{ path('create')}}"> Nuevo </a>
           <table class="table" id="datetable">
               <thead>
@@ -26,16 +27,13 @@
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
-                       
-                    <!--    <a href="{#{ path('es_edit_survey', {'id': survey.id})}}"> Modificar </a> |
-                    -->
-                    <!--    <a href="{{ path('iw_easy_survey_delete_project', {'id': survey.id})}}" onclick="return confirm('¿Esta seguro? Si borra la categoría perderá todos los cuestionarios y datos asociados a ellos')"> Borrar </a> |
-                    -->
-                    <!--   <a href="{{ path('iw_easy_survey_collaborator', {'id': survey.id})}#}"> Colaboradores </a>
-                     -->
-                     
+                        <a href="{{ path('edit', {'id': survey.id})}}"> Editar </a> |
+                        <a href="{{ path('delete', {'id': survey.id})}}" onclick="return confirm('¿Esta seguro?')"> Borrar </a> 
+                        
                      </td>
                 </tr>
                 {% endfor %}
-    </div>
+              </tbody>
+          </table>
+        </div>
 {% endblock %}
