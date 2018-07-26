@@ -18,11 +18,13 @@
         <img alt="Logotipo de EasySurvey" height="262" width="518" src="{{ asset_url }}"/>
         {% endimage %}
         <div class="container">
-            {% block content %}hola{% endblock %}    
+            {% block content %}{% endblock %}    
         </div>
         
         {% include 'footer.html.twig' %}
-     
+     <div>
+  
+    </div>
         {% javascripts '@AppBundle/Resources/public/js/*' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}

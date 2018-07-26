@@ -23,7 +23,7 @@ class Survey
     private $description;
 
     /**
-     * @var int
+     * @var boolean
      */
     private $isActive;
 
@@ -94,7 +94,7 @@ class Survey
     /**
      * Set isActive
      *
-     * @param integer $isActive
+     * @param boolean $isActive
      *
      * @return Survey
      */
@@ -108,7 +108,7 @@ class Survey
     /**
      * Get isActive
      *
-     * @return int
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -139,4 +139,3 @@ class Survey
         return $this->creationDate;
     }
 }
-

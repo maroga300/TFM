@@ -6,20 +6,25 @@
         <h1>{% trans %}Gestionar proyectos{% endtrans %}</h1>
     </div>  
     <div class="page-content">
-          <table id="datetable">
+          <a href="{{ path('create')}}"> Nuevo </a>
+          <table class="table" id="datetable">
               <thead>
                 <tr>
-                  <th>{%trans%}Nombre{%endtrans%}</th>
+                  <th scope="col">{%trans%}Nombre{%endtrans%}</th>
+                  <th scope="col">{%trans%}Descripcion{%endtrans%}</th>
+                  <th scope="col">{%trans%}Activo{%endtrans%}</th>
+                  <th scope="col">{%trans%}Fecha Creación{%endtrans%}</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
                 {% for survey in surveys %}
                 <tr>
-                    <td> {{survey.name}} </td>
-                    <td> {{survey.description}} </td>
-                    <td> {{survey.isActive}} </td>
-                    <td> {{survey.creationDate|date('d/m/y')}} </td>
+                    
+                    <td scope="row"> {{survey.name}} </td>
+                    <td scope="row"> {{survey.description}} </td>
+                    <td scope="row"> {{survey.isActive}} </td>
+                    <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
                        
                     <!--    <a href="{#{ path('es_edit_survey', {'id': survey.id})}}"> Modificar </a> |

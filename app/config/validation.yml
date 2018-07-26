@@ -1,0 +1,14 @@
+# config/validation.yaml
+App\Entity\Survey:
+    properties:
+        name:
+            - NotBlank: ~
+            - Type: \Text
+        description:
+            - NotBlank: ~
+            - Type: \Text   
+        isActive:
+            - NotBlank: ~
+            - Type: \Boolean  
+        creationDate:
+            - Type: \DateTime

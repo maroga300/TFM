@@ -18,7 +18,7 @@ AppBundle\Entity\Survey:
             length: 255
             column: Description
         isActive:
-            type: integer
+            type: boolean
         creationDate:
             type: datetime
             nullable: true
