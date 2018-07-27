@@ -3,12 +3,12 @@
 {% block content %}
     
         <div class="page-header">          
-            <h1>{% trans %}Gestionar proyectos{% endtrans %}</h1>
+            <h1>{% trans %}Gestionar encuestas{% endtrans %}</h1>
         </div>  
         
         <div class="page-content">
-          <a href="{{ path('create')}}"> Nuevo </a>
-          <table class="table" id="datetable">
+          <a href="{{ path('survey_create')}}"> Nuevo </a>
+          <table class="table table-striped" id="datetable">
               <thead>
                 <tr>
                   <th scope="col">{%trans%}Nombre{%endtrans%}</th>
@@ -21,14 +21,14 @@
               <tbody>
                 {% for survey in surveys %}
                 <tr>
-                    
-                    <td scope="row"> {{survey.name}} </td>
+
+                    <td scope="row" class="col-xs-12"> {{survey.name}} </td>
                     <td scope="row"> {{survey.description}} </td>
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
-                        <a href="{{ path('edit', {'id': survey.id})}}"> Editar </a> |
-                        <a href="{{ path('delete', {'id': survey.id})}}" onclick="return confirm('¿Esta seguro?')"> Borrar </a> 
+                        <a href="{{ path('survey_edit', {'id': survey.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
+                        <a href="{{ path('survey_delete', {'id': survey.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
                         
                      </td>
                 </tr>

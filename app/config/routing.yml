@@ -10,18 +10,38 @@ login_check:
     path:     /login_check/
     defaults: { _controller: AppBundle:Registration:register }
 
-show_all:
-    path:     /showAll/
+survey_list:
+    path:     /survey/list/
     defaults: { _controller: AppBundle:ManageSurvey:show }
 
-create: 
-    path:     /create/
+survey_create: 
+    path:     /survey/create/
     defaults: { _controller: AppBundle:ManageSurvey:create }
     
-delete: 
-    path:     /delete/{id}
+survey_delete: 
+    path:     /survey/delete/{id}
     defaults: { _controller: AppBundle:ManageSurvey:delete }
     
-edit: 
-    path:     /edit/{id}
-    defaults: { _controller: AppBundle:ManageSurvey:edit }        
+survey_edit: 
+    path:     /survey/edit/{id}
+    defaults: { _controller: AppBundle:ManageSurvey:edit }   
+   
+category_list:
+    path:     /category/list/
+    defaults: { _controller: AppBundle:ManageCategory:list }
+    
+category_create:
+    path:     /category/create/
+    defaults: { _controller: AppBundle:ManageCategory:create}
+    
+category_edit: 
+    path:     /category/edit/{id}
+    defaults: { _controller: AppBundle:ManageCategory:edit }  
+
+category_delete: 
+    path:     /category/delete/{id}
+    defaults: { _controller: AppBundle:ManageCategory:delete }
+
+category_goto:
+    path:     /category/goto/{id}
+    defaults: { _controller: AppBundle:ManageCategory:goto }

@@ -22,4 +22,7 @@ AppBundle\Entity\Survey:
         creationDate:
             type: datetime
             nullable: true
+        modificationDate:
+            type: datetime
+            nullable: true 
     lifecycleCallbacks: {  }

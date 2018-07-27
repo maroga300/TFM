@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Survey;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -46,12 +47,12 @@ class ManageSurveyController extends Controller
         $survey = new Survey();
         $survey->setIsActive($active);
         $survey->setCreationDate(new \DateTime());
+        $survey->setModificationDate(new \DateTime('0/0/0'));
 
         $form = $this->createFormBuilder($survey)
-            ->add('name', TextType::class,array('label'=>'Nombre: ','required'=>true))
-            ->add('description', TextType::class,array('label'=>'Descripción: '))
+            ->add('name', TextType::class,array('label'=>'Nombre de la encuesta: ','required'=>true))
+            ->add('description', TextareaType::class,array('label'=>'Descripción: '))
             ->add('isActive', CheckboxType::class, array('label' => '¿Activo?: ','required' => false))
-            ->add('creationDate', DateType::class)
             ->add('save', SubmitType::class, array('label' => 'Crear'))
             ->getForm();
 
@@ -68,7 +69,7 @@ class ManageSurveyController extends Controller
             $entityManager->persist($survey);
             $entityManager->flush();
 
-            return $this->redirectToRoute('show_all');
+            return $this->redirectToRoute('survey_list');
         }
 
         return $this->render('surveys/create.html.twig', array(
@@ -94,13 +95,13 @@ class ManageSurveyController extends Controller
     */   
         $em = $this->getDoctrine()->getManager();
         $survey = $em->getRepository('AppBundle:Survey')->find($id);
-        
+        $survey->setModificationDate(new \DateTime());
 
         $form = $this->createFormBuilder($survey)
             ->add('name', TextType::class,array('label'=>'Nombre: ','required'=>true,'data'=>$survey->getName()))
             ->add('description', TextType::class,array('label'=>'Descripción: ','data'=>$survey->getDescription()))
             ->add('isActive', CheckboxType::class, array('label' => '¿Activo?: ','required' => false,'data'=>$survey->getIsActive()))
-            ->add('creationDate', DateType::class, array('label' => 'Fecha: ','required' => false,'data'=>$survey->getCreationDate()))
+           // ->add('creationDate', DateType::class, array('label' => 'Fecha: ','required' => false,'data'=>$survey->getCreationDate()))
             ->add('save', SubmitType::class, array('label' => 'Modificar'))
             ->getForm();
 
@@ -115,13 +116,19 @@ class ManageSurveyController extends Controller
             $survey->setName($formData->getName());
             $survey->setDescription($formData->getDescription());
             $survey->setIsActive($formData->getIsActive());
-            $survey->setCreationDate($formData->getCreationDate());
+            
+            
+            //Comprobación de errores de encuestas
+            
+            
             
             //Guardamos en la Base de datos
             $em->persist($survey);
             $em->flush();    
 
-            return $this->redirectToRoute('show_all');
+            $this->addFlash('OK', 'Actualización correcta');
+            
+            return $this->redirectToRoute('survey_list');
         }
 
         return $this->render('surveys/create.html.twig', array(
@@ -142,6 +149,6 @@ class ManageSurveyController extends Controller
         $survey = $em->getRepository('AppBundle:Survey')->find($id);
         $em->remove($survey);
         $em->flush();
-        return $this->redirectToRoute('show_all');
+        return $this->redirectToRoute('survey_list');
     }
 }
