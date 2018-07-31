@@ -10,22 +10,6 @@ login_check:
     path:     /login_check/
     defaults: { _controller: AppBundle:Registration:register }
 
-survey_list:
-    path:     /survey/list/{categoryid}
-    defaults: { _controller: AppBundle:ManageSurvey:show }
-
-survey_create: 
-    path:     /survey/create/{categoryid}
-    defaults: { _controller: AppBundle:ManageSurvey:create }
-    
-survey_delete: 
-    path:     /survey/delete/{surveyid}
-    defaults: { _controller: AppBundle:ManageSurvey:delete }
-    
-survey_edit: 
-    path:     /survey/edit/{surveyid}
-    defaults: { _controller: AppBundle:ManageSurvey:edit }   
-   
 category_list:
     path:     /category/list/
     defaults: { _controller: AppBundle:ManageCategory:list }
@@ -41,3 +25,35 @@ category_edit:
 category_delete: 
     path:     /category/delete/{categoryid}
     defaults: { _controller: AppBundle:ManageCategory:delete }
+
+survey_list:
+    path:     /survey/list/{categoryid}
+    defaults: { _controller: AppBundle:ManageSurvey:show }
+
+survey_create: 
+    path:     /survey/create/{categoryid}
+    defaults: { _controller: AppBundle:ManageSurvey:create }
+    
+survey_edit: 
+    path:     /survey/edit/{surveyid}
+    defaults: { _controller: AppBundle:ManageSurvey:edit }  
+    
+survey_delete: 
+    path:     /survey/delete/{surveyid}
+    defaults: { _controller: AppBundle:ManageSurvey:delete }
+   
+question_list:
+    path:     /question/list/{surveyid}
+    defaults: { _controller: AppBundle:ManageQuestion:list }
+
+question_create: 
+    path:     /question/create/{surveyid}
+    defaults: { _controller: AppBundle:ManageQuestion:create }
+
+question_edit: 
+    path:     /question/edit/{questionid}
+    defaults: { _controller: AppBundle:ManageQuestion:edit }  
+    
+question_delete: 
+    path:     /question/delete/{questionid}
+    defaults: { _controller: AppBundle:ManageQuestion:delete }

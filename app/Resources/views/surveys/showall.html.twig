@@ -22,7 +22,10 @@
                 {% for survey in surveys %}
                 <tr>
 
-                    <td scope="row" class="col-xs-12"> {{survey.name}} </td>
+                    <td scope="row" class="col-xs-12">  
+                    <a href="{{ path('question_list', {'surveyid': survey.id})}}" >{{survey.name}}</a>
+
+                    </td>
                     <td scope="row"> {{survey.description}} </td>
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>

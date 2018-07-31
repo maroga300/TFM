@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    
+        <div class="page-header">          
+            <h2>{{surveyname}}: {% trans %}Preguntas{% endtrans %}</h2>
+        </div>  
+        
+        <div class="page-content">
+          <a href="{{ path('question_create', {'surveyid': surveyid})}}"> Nuevo </a>
+          <table class="table table-striped" id="datetable">
+              <thead>
+                <tr>
+                  <th scope="col">{%trans%}Nombre{%endtrans%}</th>
+                  <th scope="col">{%trans%}Tipo{%endtrans%}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for question in questions %}
+                <tr>
+
+                    <td scope="row" class="col-xs-12">  
+                    <a href="{{ path('question_edit', {'questionid': question.id})}}">{{question.name}}</a>
+                    </td>
+                    <td scope="row"> {{question.typeId}} </td>
+              
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+          <a href="{{ path('survey_list', {'categoryid': categoryid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a las encuestas{% endtrans %}</a> 
+
+        </div>
+{% endblock %}
