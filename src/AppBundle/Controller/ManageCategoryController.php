@@ -39,9 +39,9 @@ class ManageCategoryController extends Controller
         $category->setUserid(5);
 
         $form = $this->createFormBuilder($category)
-            ->add('name', TextType::class,array('label'=>'Nombre de la categoría: ','required'=>true))
-            ->add('description', TextareaType::class,array('label'=>'Descripción: '))
-            ->add('save', SubmitType::class, array('label' => 'Guardar', 'attr' => array('class' => 'save')))
+            ->add('name', TextType::class,array('attr' => array('class' => 'form-control hide', 'placeholder'=> 'Nombre de la categoría'),'label'=>false,'required'=>true))
+            ->add('description', TextareaType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false))
+            ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Guardar'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -76,11 +76,11 @@ class ManageCategoryController extends Controller
     */   
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('AppBundle:Category')->find($id);
-        
+        //
         $form = $this->createFormBuilder($category)
-            ->add('name', TextType::class,array('label'=>'Nombre de la categoría: ','required'=>true,'data'=>$category->getName()))
-            ->add('description', TextareaType::class,array('label'=>'Descripción de la categoría: ','data'=>$category->getDescription()))
-            ->add('save', SubmitType::class, array('label' => 'Modificar'))
+            ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la categoría'),'label'=>false,'required'=>true,'data'=>$category->getName()))
+            ->add('description', TextareaType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false,'data'=>$category->getDescription()))
+            ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Modificar'))
             ->getForm();
 
         $form->handleRequest($request);
@@ -94,10 +94,7 @@ class ManageCategoryController extends Controller
             $category->setName($formData->getName());
             $category->setDescription($formData->getDescription());
             
-            
             //Comprobación de errores de las categorías
-            
-            
             
             //Guardamos en la Base de datos
             $em->persist($category);
@@ -108,7 +105,7 @@ class ManageCategoryController extends Controller
             return $this->redirectToRoute('category_list');
         }
 
-        return $this->render('surveys/create.html.twig', array(
+        return $this->render('categories/create.html.twig', array(
             'form' => $form->createView(),
         ));   
     }

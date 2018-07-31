@@ -14,9 +14,10 @@
         
     </head>
     <body>
-        {% image '@AppBundle/Resources/public/images/logo.jpg' %}
-        <img alt="Logotipo de EasySurvey" height="262" width="518" src="{{ asset_url }}"/>
-        {% endimage %}
+        
+        {% include 'header.html.twig' %}
+        
+        
         <div class="container">
             {% block content %}{% endblock %}    
         </div>
