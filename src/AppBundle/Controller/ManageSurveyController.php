@@ -18,7 +18,7 @@ class ManageSurveyController extends Controller
     public function showAction($categoryid){
        
         $em = $this->getDoctrine()->getManager();
-        $surveys = $em->getRepository(Survey::class)->findByCategoryid($categoryid);
+        $surveys = $em->getRepository('AppBundle:Survey')->findByCategoryid($categoryid);
         
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
         

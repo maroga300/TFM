@@ -121,6 +121,13 @@ class ManageCategoryController extends Controller
     public function deleteAction($categoryid, Request $request){
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
+        
+        //borramos las encuestas asociadas a dicha categoría
+        $surveys = $em->getRepository('AppBundle:Survey')->findByCategoryid($categoryid);
+        foreach ($surveys as $data) {
+            $em->remove($data);
+        }
+        
         $em->remove($category);
         $em->flush();
         return $this->redirectToRoute('category_list');
