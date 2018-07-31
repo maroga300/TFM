@@ -24,5 +24,7 @@ AppBundle\Entity\Survey:
             nullable: true
         modificationDate:
             type: datetime
-            nullable: true 
+            nullable: true     
+        categoryid:
+             type: integer
     lifecycleCallbacks: {  }

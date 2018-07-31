@@ -139,15 +139,16 @@ class ManageCategoryController extends Controller
         * 
         * 
         * 
-       Me quedo por aqui, ahora tengo que añadir un nuevo campo a la entidad Survey, para mostrar todas
-        * las encuestas de dicha categoría.
         * 
      */
+    
+    /*
     public function gotoAction($id, Request $request){
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('AppBundle:Survey')->find($id);
+        $surveys = $em->getRepository('AppBundle:Survey')->findbyIdCategory($id);
+        
        // $em->remove($category);
         $em->flush();
         return $this->redirectToRoute('category_list');
-    }
+    }*/
 }

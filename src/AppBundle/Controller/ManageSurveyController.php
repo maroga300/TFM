@@ -15,10 +15,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ManageSurveyController extends Controller
 {
-    public function showAction(){
+    public function showAction($id){
        
         $em = $this->getDoctrine()->getManager();
-        $surveys = $em->getRepository(Survey::class)->findAll();
+        $surveys = $em->getRepository(Survey::class)->findByCategoryid($id);
       
         return $this->render(
             'surveys/showall.html.twig',
