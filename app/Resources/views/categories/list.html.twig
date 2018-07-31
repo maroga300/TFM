@@ -23,9 +23,9 @@
                     <td scope="row" class="col-xs-12"> {{category.name}} </td>
                     <td scope="row"> {{category.description}} </td>
                     <td>
-                       <a href="{{ path('category_edit', {'id': category.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
-                       <a href="{{ path('category_delete', {'id': category.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
-                       <a href="{{ path('survey_list', {'id': category.id})}}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span>{% trans %}Ir a encuestas{% endtrans %}</a> 
+                       <a href="{{ path('category_edit', {'categoryid': category.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
+                       <a href="{{ path('category_delete', {'categoryid': category.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
+                       <a href="{{ path('survey_list', {'categoryid': category.id})}}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span>{% trans %}Ir a encuestas{% endtrans %}</a> 
                      </td>
                 </tr>
                 {% endfor %}

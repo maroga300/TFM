@@ -11,19 +11,19 @@ login_check:
     defaults: { _controller: AppBundle:Registration:register }
 
 survey_list:
-    path:     /survey/list/{id}
+    path:     /survey/list/{categoryid}
     defaults: { _controller: AppBundle:ManageSurvey:show }
 
 survey_create: 
-    path:     /survey/create/
+    path:     /survey/create/{categoryid}
     defaults: { _controller: AppBundle:ManageSurvey:create }
     
 survey_delete: 
-    path:     /survey/delete/{id}
+    path:     /survey/delete/{surveyid}
     defaults: { _controller: AppBundle:ManageSurvey:delete }
     
 survey_edit: 
-    path:     /survey/edit/{id}
+    path:     /survey/edit/{surveyid}
     defaults: { _controller: AppBundle:ManageSurvey:edit }   
    
 category_list:
@@ -35,9 +35,9 @@ category_create:
     defaults: { _controller: AppBundle:ManageCategory:create}
     
 category_edit: 
-    path:     /category/edit/{id}
+    path:     /category/edit/{categoryid}
     defaults: { _controller: AppBundle:ManageCategory:edit }  
 
 category_delete: 
-    path:     /category/delete/{id}
+    path:     /category/delete/{categoryid}
     defaults: { _controller: AppBundle:ManageCategory:delete }

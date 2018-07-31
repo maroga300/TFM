@@ -66,7 +66,7 @@ class ManageCategoryController extends Controller
         
     }
     
-   public function editAction($id, Request $request){
+   public function editAction($categoryid, Request $request){
     /*    $error = '';
      * 
     //TO-DO: Comprobación Usuario logueado.
@@ -75,7 +75,7 @@ class ManageCategoryController extends Controller
         }
     */   
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('AppBundle:Category')->find($id);
+        $category = $em->getRepository('AppBundle:Category')->find($categoryid);
         //
         $form = $this->createFormBuilder($category)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la categoría'),'label'=>false,'required'=>true,'data'=>$category->getName()))
@@ -118,34 +118,12 @@ class ManageCategoryController extends Controller
      *
      * @return 
      */
-    public function deleteAction($id, Request $request){
+    public function deleteAction($categoryid, Request $request){
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('AppBundle:Category')->find($id);
+        $category = $em->getRepository('AppBundle:Category')->find($categoryid);
         $em->remove($category);
         $em->flush();
         return $this->redirectToRoute('category_list');
     }
-    
-       /**
-     * Función para ir a las encuestas de una categoría
-     *
-     * @param 
-     *
-     * @return 
-        * 
-        * 
-        * 
-        * 
-        * 
-     */
-    
-    /*
-    public function gotoAction($id, Request $request){
-        $em = $this->getDoctrine()->getManager();
-        $surveys = $em->getRepository('AppBundle:Survey')->findbyIdCategory($id);
-        
-       // $em->remove($category);
-        $em->flush();
-        return $this->redirectToRoute('category_list');
-    }*/
+   
 }

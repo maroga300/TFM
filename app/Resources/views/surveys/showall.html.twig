@@ -3,11 +3,11 @@
 {% block content %}
     
         <div class="page-header">          
-            <h2>{% trans %}Encuestas{% endtrans %}</h2>
+            <h2>{{categoryname}}: {% trans %}Encuestas{% endtrans %}</h2>
         </div>  
         
         <div class="page-content">
-          <a href="{{ path('survey_create')}}"> Nuevo </a>
+          <a href="{{ path('survey_create', {'categoryid': categoryid})}}"> Nuevo </a>
           <table class="table table-striped" id="datetable">
               <thead>
                 <tr>
@@ -27,13 +27,15 @@
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
-                        <a href="{{ path('survey_edit', {'id': survey.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
-                        <a href="{{ path('survey_delete', {'id': survey.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
+                        <a href="{{ path('survey_edit', {'surveyid': survey.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
+                        <a href="{{ path('survey_delete', {'surveyid': survey.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
                         
                      </td>
                 </tr>
                 {% endfor %}
               </tbody>
           </table>
+          <a href="{{ path('category_list')}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a categorías{% endtrans %}</a> 
+
         </div>
 {% endblock %}

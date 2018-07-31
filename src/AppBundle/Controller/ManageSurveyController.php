@@ -15,15 +15,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ManageSurveyController extends Controller
 {
-    public function showAction($id){
+    public function showAction($categoryid){
        
         $em = $this->getDoctrine()->getManager();
-        $surveys = $em->getRepository(Survey::class)->findByCategoryid($id);
-      
+        $surveys = $em->getRepository(Survey::class)->findByCategoryid($categoryid);
+        
+        $category = $em->getRepository('AppBundle:Category')->find($categoryid);
+        
         return $this->render(
             'surveys/showall.html.twig',
             array(
                'surveys'=>$surveys,
+                'categoryid' =>$categoryid,
+                'categoryname' => $category->getName()
             )
         );
     }
@@ -35,7 +39,7 @@ class ManageSurveyController extends Controller
      *
      * @return 
      */
-    public function createAction(Request $request){
+    public function createAction(Request $request, $categoryid){
     /*    $error = '';
      * 
     //TO-DO: Comprobación Usuario logueado.
@@ -48,6 +52,7 @@ class ManageSurveyController extends Controller
         $survey->setIsActive($active);
         $survey->setCreationDate(new \DateTime());
         $survey->setModificationDate(new \DateTime('0/0/0'));
+        $survey->setCategoryid($categoryid);
 
         $form = $this->createFormBuilder($survey)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la encuesta'),'label'=>false,'required'=>true))
@@ -69,7 +74,7 @@ class ManageSurveyController extends Controller
             $entityManager->persist($survey);
             $entityManager->flush();
 
-            return $this->redirectToRoute('survey_list');
+            return $this->redirectToRoute('survey_list', array('categoryid'=>$categoryid));
         }
 
         return $this->render('surveys/create.html.twig', array(
@@ -85,7 +90,7 @@ class ManageSurveyController extends Controller
      *
      * @return 
      */
-    public function editAction($id, Request $request){
+    public function editAction($surveyid, Request $request){
     /*    $error = '';
      * 
     //TO-DO: Comprobación Usuario logueado.
@@ -94,8 +99,9 @@ class ManageSurveyController extends Controller
         }
     */   
         $em = $this->getDoctrine()->getManager();
-        $survey = $em->getRepository('AppBundle:Survey')->find($id);
+        $survey = $em->getRepository('AppBundle:Survey')->find($surveyid);
         $survey->setModificationDate(new \DateTime());
+        $categoryid = $survey->getCategoryId();
 
         $form = $this->createFormBuilder($survey)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre'),'label'=>false,'required'=>true,'data'=>$survey->getName()))
@@ -128,7 +134,7 @@ class ManageSurveyController extends Controller
 
             $this->addFlash('OK', 'Actualización correcta');
             
-            return $this->redirectToRoute('survey_list');
+            return $this->redirectToRoute('survey_list', array('categoryid'=>$categoryid));
         }
 
         return $this->render('surveys/create.html.twig', array(
@@ -144,11 +150,14 @@ class ManageSurveyController extends Controller
      *
      * @return 
      */
-    public function deleteAction($id, Request $request){
+    public function deleteAction($surveyid, Request $request){
         $em = $this->getDoctrine()->getManager();
-        $survey = $em->getRepository('AppBundle:Survey')->find($id);
+        $survey = $em->getRepository('AppBundle:Survey')->find($surveyid);
+        $categoryid = $survey->getCategoryId();
+
+                
         $em->remove($survey);
         $em->flush();
-        return $this->redirectToRoute('survey_list');
+        return $this->redirectToRoute('survey_list', array('categoryid'=>$categoryid));
     }
 }
