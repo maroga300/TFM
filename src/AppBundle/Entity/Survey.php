@@ -32,7 +32,12 @@ class Survey
      */
     private $creationDate;
 
-
+    /**
+     * @var int
+     */
+    private $categoryid;
+   
+    
     /**
      * Get id
      *
@@ -166,5 +171,29 @@ class Survey
     public function getModificationDate()
     {
         return $this->modificationDate;
+    }
+    
+      /**
+     * Set categoryid
+     *
+     * @param integer $categoryid
+     *
+     * @return Category
+     */
+    public function setCategoryid($categoryid)
+    {
+        $this->categoryid = $categoryid;
+
+        return $this;
+    }
+
+    /**
+     * Get userid
+     *
+     * @return int
+     */
+    public function getCategoryid()
+    {
+        return $this->categoryid;
     }
 }
