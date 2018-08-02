@@ -12,7 +12,7 @@
                 <a href="{{ path('question_create', {'surveyid': surveyid})}}">
                     {% image '@AppBundle/Resources/public/images/add.png' %}
                           <img class="icon" alt="Añadir encuesta" src="{{ asset_url }}"/>
-                      {% endimage %}
+                    {% endimage %}
                 </a>
            </div>
             
@@ -31,8 +31,17 @@
                   <td>{{question.name}}</td>
                   <td>{{options[question.typeId]}}</td>
                   <td>
-                    <a href="{{ path('question_edit', {'questionid': question.id})}}"> {% trans %}Modificar{% endtrans %} </a> |
-                    <a href="{{ path('question_delete', {'questionid': question.id})}}" onclick="return confirm('¿Esta seguro?')"> {% trans %}Borrar{% endtrans %} </a> |
+                    <a href="{{ path('question_edit', {'questionid': question.id})}}">
+                     {% image '@AppBundle/Resources/public/images/edit.png' %}
+                                <img class="icon" alt="Editar pregunta" src="{{ asset_url }}"/>
+                     {% endimage %}
+                    </a>
+                    
+                    <a href="{{ path('question_delete', {'questionid': question.id})}}" onclick="return confirm('¿Esta seguro?')"> 
+                     {% image '@AppBundle/Resources/public/images/delete.png' %}
+                                <img class="icon" alt="Borrar pregunta" src="{{ asset_url }}"/>
+                     {% endimage %}
+                    </a>
                     {% if question.typeId > 1 %}
                         <a href="{{ path('question_edit_option', {'questionid': question.id})}}"> {% trans %}Modificar opciones{% endtrans %} </a>
                     {% endif %}
@@ -41,7 +50,7 @@
               {% endfor %}
               </tbody>
           </table>
-          <a href="{{ path('question_create', {'surveyid': surveyid})}}"> {% trans %}Añadir pregunta{% endtrans %} </a>
+         <a href="{{ path('survey_list', {'categoryid': categoryid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a encuestas{% endtrans %}</a> 
       </div>
        
 {% endblock %}

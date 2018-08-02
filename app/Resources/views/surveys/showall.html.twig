@@ -30,10 +30,7 @@
                 {% for survey in surveys %}
                 <tr>
 
-                    <td scope="row" class="col-xs-12">  
-                    <a href="{{ path('question_list', {'surveyid': survey.id})}}" >{{survey.name}}</a>
-
-                    </td>
+                    <td scope="row">{{survey.name}}</td>
                     <td scope="row"> {{survey.description}} </td>
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
@@ -48,7 +45,11 @@
                                 <img class="icon" alt="Borrar encuestas" src="{{ asset_url }}"/>
                             {% endimage %}
                         </a> 
-                        
+                        <a href="{{ path('question_list', {'surveyid': survey.id})}}">
+                             {% image '@AppBundle/Resources/public/images/goto.png' %}
+                                <img class="icon" alt="Ir a preguntas" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a> 
                      </td>
                 </tr>
                 {% endfor %}
