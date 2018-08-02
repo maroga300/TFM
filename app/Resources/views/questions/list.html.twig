@@ -5,31 +5,33 @@
         <div class="page-header">          
             <h2>{{surveyname}}: {% trans %}Preguntas{% endtrans %}</h2>
         </div>  
-        
-        <div class="page-content">
-          <a href="{{ path('question_create', {'surveyid': surveyid})}}"> Nuevo </a>
-          <table class="table table-striped" id="datetable">
+         <div class="page-content">
+          
+          <table id="datetable">
               <thead>
-                <tr>
-                  <th scope="col">{%trans%}Nombre{%endtrans%}</th>
-                  <th scope="col">{%trans%}Tipo{%endtrans%}</th>
+              <tr>
+                  <th>{% trans %}Nombre{% endtrans %}</th>
+                  <th>{% trans %}Tipo{% endtrans %}</th>
                   <th></th>
-                </tr>
+              </tr>
               </thead>
               <tbody>
-                {% for question in questions %}
-                <tr>
-
-                    <td scope="row" class="col-xs-12">  
-                    <a href="{{ path('question_edit', {'questionid': question.id})}}">{{question.name}}</a>
-                    </td>
-                    <td scope="row"> {{question.typeId}} </td>
-              
-                </tr>
-                {% endfor %}
+              {% for question in questions %}
+              <tr>
+                  <td>{{question.name}}</td>
+                  <td>{{options[question.typeId]}}</td>
+                  <td>
+                    <a href="{{ path('question_edit', {'questionid': question.id})}}"> {% trans %}Modificar{% endtrans %} </a> |
+                    <a href="{{ path('question_delete', {'questionid': question.id})}}" onclick="return confirm('¿Esta seguro?')"> {% trans %}Borrar{% endtrans %} </a> |
+                    {% if question.typeId > 1 %}
+                        <a href="{{ path('question_edit_option', {'questionid': question.id})}}"> {% trans %}Modificar opciones{% endtrans %} </a>
+                    {% endif %}
+                  </td>
+              </tr>
+              {% endfor %}
               </tbody>
           </table>
-          <a href="{{ path('survey_list', {'categoryid': categoryid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a las encuestas{% endtrans %}</a> 
-
-        </div>
+          <a href="{{ path('question_create', {'surveyid': surveyid})}}"> {% trans %}Añadir pregunta{% endtrans %} </a>
+      </div>
+       
 {% endblock %}

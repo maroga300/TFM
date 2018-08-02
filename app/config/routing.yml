@@ -53,6 +53,10 @@ question_create:
 question_edit: 
     path:     /question/edit/{questionid}
     defaults: { _controller: AppBundle:ManageQuestion:edit }  
+
+question_edit_option:
+    path:     /question/edit_option/{questionid}
+    defaults: { _controller: AppBundle:ManageQuestion:editOption } 
     
 question_delete: 
     path:     /question/delete/{questionid}
