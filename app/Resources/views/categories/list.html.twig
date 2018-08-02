@@ -7,7 +7,16 @@
         </div>  
         
         <div class="page-content">
-          <a href="{{ path('category_create')}}"> Nuevo </a>
+            
+            <div class="icon-new"> 
+               <a href="{{ path('category_create')}}">
+                    {% image '@AppBundle/Resources/public/images/add.png' %}
+                          <img class="icon" alt="Añadir categoría" src="{{ asset_url }}"/>
+                      {% endimage %}
+                </a>
+           </div>
+            
+          
           <table class="table table-striped" id="datetable">
               <thead>
                 <tr>
@@ -23,9 +32,21 @@
                     <td scope="row" class="col-xs-12"> {{category.name}} </td>
                     <td scope="row"> {{category.description}} </td>
                     <td>
-                       <a href="{{ path('category_edit', {'categoryid': category.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
-                       <a href="{{ path('category_delete', {'categoryid': category.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
-                       <a href="{{ path('survey_list', {'categoryid': category.id})}}" class="btn btn-xs btn-warning"><span class="fa fa-pencil"></span>{% trans %}Ir a encuestas{% endtrans %}</a> 
+                       <a href="{{ path('category_edit', {'categoryid': category.id})}}">
+                            {% image '@AppBundle/Resources/public/images/edit.png' %}
+                                <img class="icon" alt="Editar categoría" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a>
+                       <a href="{{ path('category_delete', {'categoryid': category.id})}}" onclick="return confirm('¿Esta seguro?')">
+                           {% image '@AppBundle/Resources/public/images/delete.png' %}
+                                <img class="icon" alt="Borrar categoría" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a> 
+                       <a href="{{ path('survey_list', {'categoryid': category.id})}}">
+                             {% image '@AppBundle/Resources/public/images/goto.png' %}
+                                <img class="icon" alt="Ir a encuestas" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a> 
                      </td>
                 </tr>
                 {% endfor %}

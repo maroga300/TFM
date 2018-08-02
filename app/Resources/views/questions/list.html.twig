@@ -6,8 +6,18 @@
             <h2>{{surveyname}}: {% trans %}Preguntas{% endtrans %}</h2>
         </div>  
          <div class="page-content">
+
           
-          <table id="datetable">
+            <div class="icon-new"> 
+                <a href="{{ path('question_create', {'surveyid': surveyid})}}">
+                    {% image '@AppBundle/Resources/public/images/add.png' %}
+                          <img class="icon" alt="Añadir encuesta" src="{{ asset_url }}"/>
+                      {% endimage %}
+                </a>
+           </div>
+            
+           
+          <table class="table table-striped" id="datetable">
               <thead>
               <tr>
                   <th>{% trans %}Nombre{% endtrans %}</th>
