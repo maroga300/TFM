@@ -7,7 +7,15 @@
         </div>  
         
         <div class="page-content">
-          <a href="{{ path('survey_create', {'categoryid': categoryid})}}"> Nuevo </a>
+           
+           <div class="icon-new"> 
+                <a href="{{ path('survey_create', {'categoryid': categoryid})}}"> 
+                    {% image '@AppBundle/Resources/public/images/add.png' %}
+                          <img class="icon" alt="Añadir encuesta" src="{{ asset_url }}"/>
+                      {% endimage %}
+                </a>
+           </div>
+          
           <table class="table table-striped" id="datetable">
               <thead>
                 <tr>
@@ -30,8 +38,16 @@
                     <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
-                        <a href="{{ path('survey_edit', {'surveyid': survey.id})}}" class="btn btn-xs btn-success"><span class="fa fa-pencil"></span>{% trans %}Editar{% endtrans %}</a>
-                        <a href="{{ path('survey_delete', {'surveyid': survey.id})}}" class="btn btn-xs btn-danger" onclick="return confirm('¿Esta seguro?')"><span class="fa fa-pencil"></span>{% trans %}Borrar{% endtrans %}</a> 
+                        <a href="{{ path('survey_edit', {'surveyid': survey.id})}}">
+                              {% image '@AppBundle/Resources/public/images/edit.png' %}
+                                <img class="icon" alt="Editar encuesta" src="{{ asset_url }}"/>
+                             {% endimage %}
+                        </a> 
+                        <a href="{{ path('survey_delete', {'surveyid': survey.id})}}" onclick="return confirm('¿Esta seguro?')">
+                             {% image '@AppBundle/Resources/public/images/delete.png' %}
+                                <img class="icon" alt="Borrar encuestas" src="{{ asset_url }}"/>
+                            {% endimage %}
+                        </a> 
                         
                      </td>
                 </tr>
