@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    
+        <div class="page-header">          
+            <h2>{{questionname}}{% trans %}: Opciones{% endtrans %}</h2>
+        </div>  
+         <div class="page-content">
+
+          
+            <div class="icon-new"> 
+                <a href="{{ path('answer_create', {'questionid': questionid})}}">
+                    {% image '@AppBundle/Resources/public/images/add.png' %}
+                          <img class="icon" alt="Añadir opción" src="{{ asset_url }}"/>
+                    {% endimage %}
+                </a>
+           </div>
+            
+           
+          <table class="table table-striped" id="datetable">
+              <thead>
+              <tr>
+                  <th>{% trans %}Nombre{% endtrans %}</th>
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              {% for answer in answers %}
+              <tr>
+                  <td>{{answer.name}}</td>
+                 
+                  <td>
+                    <a href="{{ path('answer_edit', {'answerid': answer.id})}}">
+                     {% image '@AppBundle/Resources/public/images/edit.png' %}
+                                <img class="icon" alt="Editar opción" src="{{ asset_url }}"/>
+                     {% endimage %}
+                    </a>
+                    
+                    <a href="{{ path('answer_delete', {'answerid': answer.id})}}" onclick="return confirm('¿Está seguro?')"> 
+                     {% image '@AppBundle/Resources/public/images/delete.png' %}
+                                <img class="icon" alt="Borrar opción" src="{{ asset_url }}"/>
+                     {% endimage %}
+                    </a>
+                  </td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+         <a href="{{ path('question_list', {'surveyid': surveyid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a las preguntas{% endtrans %}</a> 
+      </div>
+       
+{% endblock %}

@@ -28,15 +28,15 @@ category_delete:
 
 survey_list:
     path:     /survey/list/{categoryid}
-    defaults: { _controller: AppBundle:ManageSurvey:show }
+    defaults: { _controller: AppBundle:ManageSurvey:show}
 
 survey_create: 
     path:     /survey/create/{categoryid}
-    defaults: { _controller: AppBundle:ManageSurvey:create }
+    defaults: { _controller: AppBundle:ManageSurvey:create}
     
 survey_edit: 
     path:     /survey/edit/{surveyid}
-    defaults: { _controller: AppBundle:ManageSurvey:edit }  
+    defaults: { _controller: AppBundle:ManageSurvey:edit}  
     
 survey_delete: 
     path:     /survey/delete/{surveyid}
@@ -61,3 +61,19 @@ question_edit_option:
 question_delete: 
     path:     /question/delete/{questionid}
     defaults: { _controller: AppBundle:ManageQuestion:delete }
+    
+answer_list:
+    path:     /answer/list/{questionid}
+    defaults: { _controller: AppBundle:ManageAnswer:list }
+
+answer_create: 
+    path:     /answer/create/{questionid}
+    defaults: { _controller: AppBundle:ManageAnswer:create }
+
+answer_edit: 
+    path:     /answer/edit/{answerid}
+    defaults: { _controller: AppBundle:ManageAnswer:edit }  
+    
+answer_delete: 
+    path:     /answer/delete/{answerid}
+    defaults: { _controller: AppBundle:ManageAnswer:delete }

@@ -124,6 +124,9 @@ class ManageCategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
         
+        //NO OLVIDAR: Borrar las respuestas de una pregunta
+        
+      
         //borramos las encuestas asociadas a dicha categoría
         $surveys = $em->getRepository('AppBundle:Survey')->findByCategoryid($categoryid);
         foreach ($surveys as $data) {

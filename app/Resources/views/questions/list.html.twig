@@ -43,7 +43,11 @@
                      {% endimage %}
                     </a>
                     {% if question.typeId > 1 %}
-                        <a href="{{ path('question_edit_option', {'questionid': question.id})}}"> {% trans %}Modificar opciones{% endtrans %} </a>
+                     <a href="{{ path('answer_list', {'questionid': question.id})}}">
+                             {% image '@AppBundle/Resources/public/images/goto.png' %}
+                                <img class="icon" alt="Ir a Opciones" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a> 
                     {% endif %}
                   </td>
               </tr>

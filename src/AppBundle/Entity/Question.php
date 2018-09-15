@@ -27,6 +27,14 @@ class Question
      */
     private $surveyId;
 
+    
+    /**
+     * @Assert\Type(type="AppBundle\Entity\Answer")
+     * @Assert\Valid()
+     */
+    protected $answer;
+    
+    
 
     /**
      * Get id
@@ -108,6 +116,19 @@ class Question
     public function getSurveyId()
     {
         return $this->surveyId;
+    }
+    
+    
+    
+    
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    public function setAnswer(Answer $answer = null)
+    {
+        $this->answer = $answer;
     }
 }
 
