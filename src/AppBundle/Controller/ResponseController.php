@@ -111,7 +111,8 @@ class ResponseController extends Controller {
         }
         
         return $this->render('response/view.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'instanceName'=>$instance[0]->getName()
         ));
         
     }
