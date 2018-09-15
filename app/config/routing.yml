@@ -77,3 +77,15 @@ answer_edit:
 answer_delete: 
     path:     /answer/delete/{answerid}
     defaults: { _controller: AppBundle:ManageAnswer:delete }
+instance_list:
+    path:     /instance/list/{surveyid}
+    defaults: { _controller: AppBundle:Instance:list }
+instance_create:
+    path:     /instance/create/{surveyid}
+    defaults: { _controller: AppBundle:Instance:create }
+instance_edit:
+    path:     /instance/edit/{instanceid}
+    defaults: { _controller: AppBundle:Instance:edit }
+instance_delete:
+    path:     /instance/delete/{instanceid}
+    defaults: { _controller: AppBundle:Instance:delete }

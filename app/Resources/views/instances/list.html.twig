@@ -1,0 +1,59 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    
+     <div class="page-header">          
+            <h2>{{surveyname}}{% trans %}: INSTANCIAS{% endtrans %}</h2>
+        </div>  
+         <div class="page-content">
+
+          
+            <div class="icon-new"> 
+                <a href="{{ path('instance_create', {'surveyid': surveyid})}}">
+                    {% image '@AppBundle/Resources/public/images/add.png' %}
+                          <img class="icon" alt="Añadir instancia" src="{{ asset_url }}"/>
+                    {% endimage %}
+                </a>
+            </div>
+            <table class="table table-striped" id="datetable">
+             
+              <thead>
+              <tr>
+                  <th>{% trans %}NOMBRE INSTANCIA{% endtrans %}</th>
+                  <th>{% trans %}Descripción{% endtrans %}</th>
+                  <th>{% trans %}Creación{% endtrans %}</th>
+                  <th>{% trans %}Modificación{% endtrans %}</th>
+                  <th>{% trans %}Key{% endtrans %}</th>
+                  <th>{% trans %}Activo{% endtrans %}</th>
+                  <th></th>
+              </tr>
+              </thead>
+
+              <tbody>  
+                  {% for instance in instances %}
+                <tr>
+                    <td>{{instance.name}}</td> 
+                    <td>{{instance.description}}</td>
+                    <td>{{instance.creationDate|date('d/m/y')}}</td> 
+                    <td>{{instance.modificationDate|date('d/m/y')}}</td> 
+                    <td>{{instance.code}}</td>
+                    <td>{{instance.active}}</td>  
+                    <td>
+                         <a href="{{ path('instance_edit', {'instanceid': instance.id})}}">
+                              {% image '@AppBundle/Resources/public/images/edit.png' %}
+                                <img class="icon" alt="Editar activación" src="{{ asset_url }}"/>
+                             {% endimage %}
+                        </a> 
+                        <a href="{{ path('instance_delete', {'instanceid': instance.id})}}" onclick="return confirm('¿Esta seguro?')">
+                             {% image '@AppBundle/Resources/public/images/delete.png' %}
+                                <img class="icon" alt="Borrar activación" src="{{ asset_url }}"/>
+                            {% endimage %}
+                        </a> 
+                </tr>
+              </tbody>
+               {% endfor %}
+          </table>
+         <a href="{{ path('instance_list', {'surveyid': surveyid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a instancias{% endtrans %}</a> 
+      </div> 
+    
+{% endblock %}  

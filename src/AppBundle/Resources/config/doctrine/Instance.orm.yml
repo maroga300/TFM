@@ -1,0 +1,29 @@
+AppBundle\Entity\Instance:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\InstanceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO       
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        surveyid:
+            type: integer
+        creationDate:
+            type: datetime
+        modificationDate:
+            type: datetime
+        active:
+            type: boolean
+        code:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

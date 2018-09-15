@@ -50,6 +50,11 @@
                                 <img class="icon" alt="Ir a preguntas" src="{{ asset_url }}"/>
                             {% endimage %}
                        </a> 
+                        <a href="{{ path('instance_list', {'surveyid': survey.id})}}">
+                             {% image '@AppBundle/Resources/public/images/instance.png' %}
+                                <img class="icon" alt="Instancias" src="{{ asset_url }}"/>
+                            {% endimage %}
+                       </a> 
                      </td>
                 </tr>
                 {% endfor %}
