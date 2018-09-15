@@ -1,0 +1,21 @@
+AppBundle\Entity\Response:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ResponseRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        instanceId:
+            type: integer
+        questionId:
+            type: integer
+        value:
+            type: string
+            length: 255
+        creationDate:
+            type: datetime
+    lifecycleCallbacks: {  }

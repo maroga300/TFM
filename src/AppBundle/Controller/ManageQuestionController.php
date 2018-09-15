@@ -133,13 +133,10 @@ class ManageQuestionController extends Controller
          ->add('rango', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Rango máximo'),'label'=>false,'required'=>true,'data'=>$var))
          ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Guardar'))
          ->getForm();
-
         }else{
-
          $form = $this->createFormBuilder()
          ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Enunciado de la pregunta'),'label'=>false,'required'=>true,'data'=>$question->getName()))
          ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Guardar'))
-
          ->getForm();
         }
    

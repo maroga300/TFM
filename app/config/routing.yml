@@ -89,3 +89,6 @@ instance_edit:
 instance_delete:
     path:     /instance/delete/{instanceid}
     defaults: { _controller: AppBundle:Instance:delete }
+response: 
+    path:     /response/{code}
+    defaults: { _controller: AppBundle:Response:viewSurvey }
