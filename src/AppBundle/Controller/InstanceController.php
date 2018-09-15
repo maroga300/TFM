@@ -39,7 +39,7 @@ class InstanceController extends Controller
         $instance = new Instance();
         $instance->setActive($active);
         $instance->setCreationDate(new \DateTime());
-        $instance->setModificationDate(new \DateTime('0/0/0'));
+        $instance->setModificationDate(new \DateTime());
         $instance->setSurveyid($surveyid);
         $instance->setCode(md5(time()));
 
