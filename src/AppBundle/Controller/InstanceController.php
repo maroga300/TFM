@@ -72,6 +72,11 @@ class InstanceController extends Controller
         ));
     }
     
+     /*
+    Aquí hay que controlar que si hay respuestas asociadas a una 
+     * instanciación no se pueden modificar las preguntas.
+   Quizás eso hay que controlarlo en la modificación de las preguntas.
+     *      */
     public function editAction(Request $request, $instanceid){
         
         $em = $this->getDoctrine()->getManager();
