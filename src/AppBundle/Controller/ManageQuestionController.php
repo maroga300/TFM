@@ -119,8 +119,9 @@ class ManageQuestionController extends Controller
         $answer = $em->getRepository('AppBundle:Answer')->findByQuestionId($questionid);
         
         if(empty($answer)){
-            $answer = new Answer();
-            $answer->setQuestionId($questionid);
+            $answer = array();
+            $answer[0] = new Answer();
+            $answer[0]->setQuestionId($questionid);
             $var="";
         }else{
             $var = $answer[0]->getName();
