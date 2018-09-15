@@ -22,10 +22,13 @@ class ResponseController extends Controller {
     public function viewSurveyAction(Request $request, $code){
         
         
-        
-        $surveyId = 13;
-        $instanceId=1;
         $em = $this->getDoctrine()->getManager();
+        
+        $instance = $em->getRepository('AppBundle:Instance')->findByCode($code);   
+        
+        $surveyId = $instance[0]->getSurveyid();
+        $instanceId = $instance[0]->getId();
+        
         $questions = $em->getRepository('AppBundle:Question')->findBySurveyId($surveyId);   
         
         $form = $this->createFormBuilder();
