@@ -1,0 +1,19 @@
+AppBundle\Entity\CheckIp:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\CheckIpRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        instanceId:
+            type: integer
+        ip:
+            type: string
+            length: 255
+        timeCreated:
+            type: datetime
+    lifecycleCallbacks: {  }

@@ -6,6 +6,8 @@ use AppBundle\Entity\Question;
 use AppBundle\Entity\Answer; //usamos la entidad Answer para modificar el tipo de pregunta: Rango numérico
 use App\Form\Type\QuestionType;
 use AppBundle\Entity\Response;
+use AppBundle\Entity\CheckIp;
+
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -35,8 +37,30 @@ class ResponseController extends Controller {
         $questions = $em->getRepository('AppBundle:Question')->findBySurveyId($surveyId);  
         $surveyName = $em->getRepository('AppBundle:Survey')->findById($surveyId);
         
+        $ipActual = $_SERVER['REMOTE_ADDR'];
+        print_r($ipActual);
+        die();
         
-        if($nowDate<$startDate || $nowDate>$endDate){
+        $check = $em->getRepository('AppBundle:CheckIp')->findBy(array('instanceId'=>$instanceId, 'ip'=>$ipActual));
+        if(!empty($check)){
+            
+            //Aqui tengo que informar de que ya ha realizado la encuesta
+            //
+            //
+              //En este caso, el usuario no está dentro del período para respnder a la encuesta. 
+            //Debería mostar un aviso y regresar a la página de inicio
+           return $this->render('encuestanodisponible.html.twig', array(
+            'surveyName'=>$surveyName[0]->getName(),
+            'startDate'=>$startDate,
+            'endDate'=>$endDate,
+            'nowDate'=>$nowDate));
+            
+            
+            
+            
+        }else if($nowDate<$startDate || $nowDate>$endDate){
+        
+        
             
             
             //En este caso, el usuario no está dentro del período para respnder a la encuesta. 
@@ -48,9 +72,8 @@ class ResponseController extends Controller {
             'nowDate'=>$nowDate   
         ));
         }else{
-        
+              
         $form = $this->createFormBuilder();
-        
         foreach ($questions as $question) {
             
             if ($question->getTypeId() == 1) { //numérica
@@ -120,7 +143,17 @@ class ResponseController extends Controller {
                 
                 //Guardamos en la Base de datos
                 $em->persist($response);
-                $em->flush();    
+             
+                
+                $check = new CheckIp();
+                $check->setInstanceId($instanceId);
+                $check->setTimeCreated(new \DateTime());
+                $check->setIp($ipActual);
+                
+                $em->persist($check);
+                $em->flush(); 
+                
+                
             }
             
             $this->addFlash('OK', 'Actualización correcta');
