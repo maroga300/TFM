@@ -28,7 +28,8 @@ class InstanceController extends Controller
             array(
                'instances'=>$instances,
                 'surveyid' =>$surveyid,
-                'surveyname' => $survey->getName()
+                'surveyname' => $survey->getName(),
+                'categoryid' => $survey->getCategoryId()
             )
         );
     }
@@ -40,12 +41,21 @@ class InstanceController extends Controller
         $instance->setActive($active);
         $instance->setCreationDate(new \DateTime());
         $instance->setModificationDate(new \DateTime());
+        $instance->setStartDate(new \DateTime());
+        $instance->setEndDate(new \DateTime());
         $instance->setSurveyid($surveyid);
         $instance->setCode(md5(time()));
 
         $form = $this->createFormBuilder($instance)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la instancia'),'label'=>false,'required'=>true))
             ->add('description', TextareaType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false))
+            ->add('startDate', DateType::class,  [
+                'widget' => 'single_text'
+            ],array('attr'=>array('class'=>'js-datepicker', 'html5' => false, 'placeholder'=>'Fecha de inicio'),'label'=>false,'data'=>$instance->getStartDate()))    
+            ->add('endDate', DateType::class,  [
+                'widget' => 'single_text'
+            ],array('attr'=>array('class'=>'js-datepicker', 'html5' => false, 'placeholder'=>'Fecha de fin'),'label'=>false,'data'=>$instance->getEndDate()))    
+            
             ->add('active', CheckboxType::class, array('attr' => array('class' => ''),'label' => '¿Activo?: ','required' => false))
             ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Crear'))
             ->getForm();
@@ -83,10 +93,18 @@ class InstanceController extends Controller
         $instance = $em->getRepository('AppBundle:Instance')->find($instanceid);
         $instance->setModificationDate(new \DateTime());
         $surveyid = $instance->getSurveyId();
+        $survey =  $em->getRepository('AppBundle:Survey')->find($surveyid);
+        $categoryid = $survey->getCategoryId();
 
         $form = $this->createFormBuilder($instance)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre'),'label'=>false,'required'=>true,'data'=>$instance->getName()))
             ->add('description', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false,'data'=>$instance->getDescription()))
+            ->add('startDate', DateType::class,  [
+                'widget' => 'single_text'
+            ],array('attr'=>array('class'=>'js-datepicker', 'html5' => false),'label'=>'Fecha Inicio','data'=>$instance->getStartDate()))    
+            ->add('endDate', DateType::class,  [
+                'widget' => 'single_text'
+            ],array('attr'=>array('class'=>'js-datepicker', 'html5' => false),'label'=>'Fecha Fin','data'=>$instance->getEndDate()))    
             ->add('active', CheckboxType::class, array('attr' => array('class' => ''),'label' => '¿Activo?: ','required' => false,'data'=>$instance->getActive()))
             ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Modificar'))
             ->getForm();
@@ -114,7 +132,7 @@ class InstanceController extends Controller
 
             $this->addFlash('OK', 'Actualización correcta');
             
-            return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid));
+            return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid));
         }
 
         return $this->render('instances/create.html.twig', array(
@@ -136,10 +154,12 @@ class InstanceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $instance = $em->getRepository('AppBundle:Instance')->find($instanceid);
         $surveyid = $instance->getSurveyId();
+        $survey =  $em->getRepository('AppBundle:Survey')->find($surveyid);
+        $categoryid = $survey->getCategoryId();
 
                 
         $em->remove($instance);
         $em->flush();
-        return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid));
+        return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid));
     }
 }

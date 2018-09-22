@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+      <div class="page-header">
+          <h1>{% trans %}Lo sentimos. {% endtrans %}</h1>
+      </div>  
+      
+     <div class="page-content">
+        {% if nowDate<startDate %}
+            <h2>{% trans %}  La encuesta {% endtrans %} {{surveyName}} 
+                {% trans %} estará disponible a partir del día: {% endtrans %}
+            {{startDate|date('d/m/y')}}</h2>
+
+        {% elseif nowDate>endDate %}
+            <h2>{% trans %}  La encuesta: {% endtrans %} {{surveyName}} 
+                {% trans %} finalizó el día: {% endtrans %}
+            {{endDate|date('d/m/y')}}</h2>
+        {% endif %}
+         
+     </div>
+{% endblock %}

@@ -27,4 +27,8 @@ AppBundle\Entity\Instance:
             type: string
             length: 255
             unique: true
+        startDate:
+            type: datetime
+        endDate:
+            type: datetime
     lifecycleCallbacks: {  }

@@ -27,9 +27,27 @@ class ResponseController extends Controller {
         $instance = $em->getRepository('AppBundle:Instance')->findByCode($code);   
         
         $surveyId = $instance[0]->getSurveyid();
+        $startDate = $instance[0]->getStartDate();
+        $endDate = $instance[0]->getEndDate();
+        $nowDate = new \DateTime("now");
         $instanceId = $instance[0]->getId();
         
-        $questions = $em->getRepository('AppBundle:Question')->findBySurveyId($surveyId);   
+        $questions = $em->getRepository('AppBundle:Question')->findBySurveyId($surveyId);  
+        $surveyName = $em->getRepository('AppBundle:Survey')->findById($surveyId);
+        
+        
+        if($nowDate<$startDate || $nowDate>$endDate){
+            
+            
+            //En este caso, el usuario no está dentro del período para respnder a la encuesta. 
+            //Debería mostar un aviso y regresar a la página de inicio
+           return $this->render('encuestanodisponible.html.twig', array(
+            'surveyName'=>$surveyName[0]->getName(),
+            'startDate'=>$startDate,
+            'endDate'=>$endDate,
+            'nowDate'=>$nowDate   
+        ));
+        }else{
         
         $form = $this->createFormBuilder();
         
@@ -115,6 +133,7 @@ class ResponseController extends Controller {
             'instanceName'=>$instance[0]->getName()
         ));
         
+    }
     }
     
 }

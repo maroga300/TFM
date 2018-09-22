@@ -22,8 +22,9 @@
                   <th>{% trans %}NOMBRE INSTANCIA{% endtrans %}</th>
                   <th>{% trans %}Descripción{% endtrans %}</th>
                   <th>{% trans %}Creación{% endtrans %}</th>
-                  <th>{% trans %}Modificación{% endtrans %}</th>
                   <th>{% trans %}Key{% endtrans %}</th>
+                  <th>{% trans %}Comienzo{% endtrans %}</th>
+                  <th>{% trans %}Fin{% endtrans %}</th>
                   <th>{% trans %}Activo{% endtrans %}</th>
                   <th></th>
               </tr>
@@ -35,8 +36,9 @@
                     <td>{{instance.name}}</td> 
                     <td>{{instance.description}}</td>
                     <td>{{instance.creationDate|date('d/m/y')}}</td> 
-                    <td>{{instance.modificationDate|date('d/m/y')}}</td> 
                     <td>{{instance.code}}</td>
+                    <td>{{instance.startDate|date('d/m/y')}}</td>
+                    <td>{{instance.endDate|date('d/m/y')}}</td>
                     <td>{{instance.active}}</td>  
                     <td>
                          <a href="{{ path('instance_edit', {'instanceid': instance.id})}}">
@@ -53,7 +55,7 @@
               </tbody>
                {% endfor %}
           </table>
-         <a href="{{ path('instance_list', {'surveyid': surveyid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a instancias{% endtrans %}</a> 
+         <a href="{{ path('survey_list', {'categoryid': categoryid})}}" class="btn btn-xs btn-primary"><span class="fa fa-pencil"></span>{% trans %}Volver a las encuestas{% endtrans %}</a> 
       </div> 
     
 {% endblock %}  
