@@ -32,47 +32,42 @@ class ResponseController extends Controller {
         $startDate = $instance[0]->getStartDate();
         $endDate = $instance[0]->getEndDate();
         $nowDate = new \DateTime("now");
+        $active = $instance[0]->getActive();
         $instanceId = $instance[0]->getId();
         
         $questions = $em->getRepository('AppBundle:Question')->findBySurveyId($surveyId);  
         $surveyName = $em->getRepository('AppBundle:Survey')->findById($surveyId);
         
         $ipActual = $_SERVER['REMOTE_ADDR'];
-        print_r($ipActual);
-        die();
-        
+       
         $check = $em->getRepository('AppBundle:CheckIp')->findBy(array('instanceId'=>$instanceId, 'ip'=>$ipActual));
+        
+        //Comprobamos que la IP+Instanceid ya existe. No permite realizar la encuesta.
         if(!empty($check)){
             
-            //Aqui tengo que informar de que ya ha realizado la encuesta
-            //
-            //
-              //En este caso, el usuario no está dentro del período para respnder a la encuesta. 
-            //Debería mostar un aviso y regresar a la página de inicio
+           $message='Ya has realizado la encuesta: '.$surveyName[0]->getName();
            return $this->render('encuestanodisponible.html.twig', array(
-            'surveyName'=>$surveyName[0]->getName(),
-            'startDate'=>$startDate,
-            'endDate'=>$endDate,
-            'nowDate'=>$nowDate));
-            
-            
-            
-            
+            'message'=>$message));
+
         }else if($nowDate<$startDate || $nowDate>$endDate){
-        
-        
+         
             
-            
-            //En este caso, el usuario no está dentro del período para respnder a la encuesta. 
-            //Debería mostar un aviso y regresar a la página de inicio
-           return $this->render('encuestanodisponible.html.twig', array(
-            'surveyName'=>$surveyName[0]->getName(),
-            'startDate'=>$startDate,
-            'endDate'=>$endDate,
-            'nowDate'=>$nowDate   
-        ));
-        }else{
-              
+            if($nowDate<$startDate){
+                $message = 'La encuesta: '.$surveyName[0]->getName().' estará disponible a partir del día: '.$startDate->format('d/m/Y');
+                return $this->render('encuestanodisponible.html.twig', array(
+                'message'=>$message));
+                
+            }
+            if($nowDate>$endDate){
+                $message = 'La encuesta: '.$surveyName[0]->getName().' finalizó el día: '.$endDate->format('d/m/Y');
+                return $this->render('encuestanodisponible.html.twig', array(
+                'message'=>$message));
+            }
+        }else if(!$active){
+            $message='La encuesta: '.$surveyName[0]->getName().' aún no está disponible';
+            return $this->render('encuestanodisponible.html.twig', array(
+            'message'=>$message));         
+        }else{  
         $form = $this->createFormBuilder();
         foreach ($questions as $question) {
             
