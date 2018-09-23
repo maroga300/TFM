@@ -22,6 +22,10 @@ class ManageSurveyController extends Controller
         
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
         
+        $user = $this->getUser();
+        
+       
+        
         return $this->render(
             'surveys/showall.html.twig',
             array(
@@ -30,6 +34,7 @@ class ManageSurveyController extends Controller
                 'categoryname' => $category->getName()
             )
         );
+       
     }
     
     /**

@@ -22,4 +22,6 @@ AppBundle\Entity\User:
             unique: true
         isActive:
             type: boolean
+        role:
+            type: integer
     lifecycleCallbacks: {  }

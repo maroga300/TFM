@@ -36,6 +36,12 @@ class User implements UserInterface
      */
     private $isActive;
 
+    /**
+     * @var integer
+     */
+    private $role;    
+    
+
     public function __construct()
     {
         $this->isActive = true;
@@ -154,9 +160,41 @@ class User implements UserInterface
     {
         return $this->isActive;
     }
+    
+       /**
+     * Set username
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+    
      public function getRoles()
     {
-        return array('ROLE_USER');
+         if ($this->role==1)  {
+             return array('ROLE_ADMIN');
+         } else if ($this->role==2)  {
+             return array('ROLE_USER');
+         } else {
+             return array();
+         }
+        
     }
 
     public function eraseCredentials()

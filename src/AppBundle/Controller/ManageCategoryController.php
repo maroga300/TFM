@@ -16,9 +16,14 @@ class ManageCategoryController extends Controller
 {
     public function listAction(){
         
+        $user = $this->getUser();
+                
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository(Category::class)->findByUserid(5);
-      
+        if ($user->getRole()==1) {
+            $categories = $em->getRepository(Category::class)->findAll();
+        } else {
+            $categories = $em->getRepository(Category::class)->findByUserid($user->getId());
+        }
         return $this->render(
             'categories/list.html.twig',
             array(
@@ -36,9 +41,9 @@ class ManageCategoryController extends Controller
             return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
         }
     */   
-        
+        $user = $this->getUser();
         $category = new Category();
-        $category->setUserid(5);
+        $category->setUserid($user->getId());
 
         $form = $this->createFormBuilder($category)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control hide', 'placeholder'=> 'Nombre de la categoría'),'label'=>false,'required'=>true))
@@ -76,8 +81,13 @@ class ManageCategoryController extends Controller
             return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
         }
     */   
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
+        
+        if ($category->getUserId()!=$user->getId()) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        }
         //
         $form = $this->createFormBuilder($category)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la categoría'),'label'=>false,'required'=>true,'data'=>$category->getName()))
@@ -121,8 +131,15 @@ class ManageCategoryController extends Controller
      * @return 
      */
     public function deleteAction($categoryid, Request $request){
+        
+        $user = $this->getUser();
+        
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('AppBundle:Category')->find($categoryid);
+        
+        if ($category->getUserId()!=$user->getId()) {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        }
         
         //NO OLVIDAR: Borrar las respuestas de una pregunta
         
