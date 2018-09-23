@@ -10,10 +10,6 @@ login:
     path:     /login/
     defaults: { _controller: AppBundle:Login:login}
 
-logout:
-    path:     /logout/
-    defaults: { _controller: AppBundle:Login:logout}
-
 category_list:
     path:     /category/list/
     defaults: { _controller: AppBundle:ManageCategory:list }

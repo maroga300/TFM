@@ -1,5 +1,10 @@
  <footer class="footer">
       <div class="container">
         <span class="">EasySurvey 2018.</span>
+        {% if app.user %}
+            {{ app.user.username }} <a href="{{ path('logout')}}">(Salir)</a>
+        {% else %}
+            <a href="{{ path('login')}}">Acceder</a>
+        {% endif %}
       </div>
     </footer>
