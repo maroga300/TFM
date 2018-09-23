@@ -1,7 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @var int
@@ -162,29 +162,18 @@ class User implements UserInterface, \Serializable
     public function eraseCredentials()
     {
     }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
+    
+    private $plainPassword;
+ 
+    public function getPlainPassword()
     {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-            // ver la sección salt debajo
-            // $this->salt,
-        ));
+        return $this->plainPassword;
     }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
+    
+    public function setPlainPassword($plainPassword)
     {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            // ver la sección salt debajo
-            // $this->salt
-        ) = unserialize($serialized);
+        $this->plainPassword = $plainPassword;
     }
+    
 }
 

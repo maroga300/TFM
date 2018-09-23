@@ -6,9 +6,13 @@ register:
     path:     /register/
     defaults: { _controller: AppBundle:Registration:register }
     
-login_check:
-    path:     /login_check/
-    defaults: { _controller: AppBundle:Registration:register }
+login:
+    path:     /login/
+    defaults: { _controller: AppBundle:Login:login}
+
+logout:
+    path:     /logout/
+    defaults: { _controller: AppBundle:Login:logout}
 
 category_list:
     path:     /category/list/
@@ -77,18 +81,23 @@ answer_edit:
 answer_delete: 
     path:     /answer/delete/{answerid}
     defaults: { _controller: AppBundle:ManageAnswer:delete }
+    
 instance_list:
     path:     /instance/list/{surveyid}
     defaults: { _controller: AppBundle:Instance:list }
+    
 instance_create:
     path:     /instance/create/{surveyid}
     defaults: { _controller: AppBundle:Instance:create }
+    
 instance_edit:
     path:     /instance/edit/{instanceid}
     defaults: { _controller: AppBundle:Instance:edit }
+    
 instance_delete:
     path:     /instance/delete/{instanceid}
     defaults: { _controller: AppBundle:Instance:delete }
+    
 response: 
     path:     /response/{code}
     defaults: { _controller: AppBundle:Response:viewSurvey }

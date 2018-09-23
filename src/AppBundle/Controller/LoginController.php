@@ -38,5 +38,16 @@ class LoginController extends Controller
     {
         // este controller no se ejecutará,
         // ya que la route se maneja por el sistema de seguridad
+        
+    }
+    
+     /**
+     * @Route("/logout", name="logout")
+     */
+    public function logoutAction()
+    {
+        // este controller no se ejecutará,
+        // ya que la route se maneja por el sistema de seguridad
+        
     }
 }

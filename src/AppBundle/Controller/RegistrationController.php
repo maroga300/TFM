@@ -36,7 +36,7 @@ class RegistrationController extends Controller
             // ... hacer cualquier otra cosa, como enviar un email, etc
             // establecer un mensaje "flash" de éxito para el usuario
 
-            return $this->redirectToRoute('reemplazar_con_una_route');
+            return $this->redirectToRoute('category_list');
         }
 
         return $this->render(
