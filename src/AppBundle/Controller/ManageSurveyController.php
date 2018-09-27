@@ -52,9 +52,7 @@ class ManageSurveyController extends Controller
             return $this->redirect($this->generateUrl('iw_easy_survey_error_login',array()));            
         }
     */   
-        $active = TRUE;
         $survey = new Survey();
-        $survey->setIsActive($active);
         $survey->setCreationDate(new \DateTime());
         $survey->setModificationDate(new \DateTime('0/0/0'));
         $survey->setCategoryid($categoryid);
@@ -62,7 +60,6 @@ class ManageSurveyController extends Controller
         $form = $this->createFormBuilder($survey)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre de la encuesta'),'label'=>false,'required'=>true))
             ->add('description', TextareaType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false))
-            ->add('isActive', CheckboxType::class, array('attr' => array('class' => ''),'label' => '¿Activo?: ','required' => false))
             ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Crear'))
             ->getForm();
 
@@ -111,8 +108,6 @@ class ManageSurveyController extends Controller
         $form = $this->createFormBuilder($survey)
             ->add('name', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Nombre'),'label'=>false,'required'=>true,'data'=>$survey->getName()))
             ->add('description', TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=> 'Descripción'),'label'=>false,'data'=>$survey->getDescription()))
-            ->add('isActive', CheckboxType::class, array('attr' => array('class' => ''),'label' => '¿Activo?: ','required' => false,'data'=>$survey->getIsActive()))
-           // ->add('creationDate', DateType::class, array('label' => 'Fecha: ','required' => false,'data'=>$survey->getCreationDate()))
             ->add('save', SubmitType::class, array('attr' => array('class' => 'btn btn-primary'),'label' => 'Modificar'))
             ->getForm();
 
@@ -126,7 +121,6 @@ class ManageSurveyController extends Controller
             
             $survey->setName($formData->getName());
             $survey->setDescription($formData->getDescription());
-            $survey->setIsActive($formData->getIsActive());
             
             
             //Comprobación de errores de encuestas

@@ -21,7 +21,6 @@
                 <tr>
                   <th scope="col">{%trans%}Nombre{%endtrans%}</th>
                   <th scope="col">{%trans%}Descripcion{%endtrans%}</th>
-                  <th scope="col">{%trans%}Activo{%endtrans%}</th>
                   <th scope="col">{%trans%}Fecha Creación{%endtrans%}</th>
                   <th></th>
                 </tr>
@@ -32,7 +31,6 @@
 
                     <td scope="row">{{survey.name}}</td>
                     <td scope="row"> {{survey.description}} </td>
-                    <td scope="row"> {{survey.isActive}} </td>
                     <td scope="row"> {{survey.creationDate|date('d/m/y')}} </td>
                     <td>
                         <a href="{{ path('survey_edit', {'surveyid': survey.id})}}">

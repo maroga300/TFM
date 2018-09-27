@@ -88,10 +88,12 @@ class ResponseController extends Controller {
             if ($question->getTypeId()==0) {
                 $form = $form->add('question_'.$question->getId(), TextType::class,array('attr' => array('class' => 'form-control', 'placeholder'=>"{$question->getName()}"),'label'=>false,'required'=>true));
             } else if ($question->getTypeId()==1) {
-                $form = $form ->add('question_'.$question->getId(), ChoiceType::class, array('attr' => array('class' => 'radio_buttons'),
+                $form = $form ->add('question_'.$question->getId(), ChoiceType::class, 
+                        array('attr' => array('class' => 'radio_buttons'),
                                 'label'=>$question->getName(),
                                 'required'=>true,
-                                'expanded'=>true, 
+                                'expanded'=>true,   //Línea para cambiar la disposición HORIZ/VERTICAL
+                                    
                                 'choices'  => $choices));
             } else if ($question->getTypeId()==2) {
                 $form = $form ->add('question_'.$question->getId(), ChoiceType::class, array(

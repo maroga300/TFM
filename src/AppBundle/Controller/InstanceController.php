@@ -93,6 +93,7 @@ class InstanceController extends Controller
         $instance = $em->getRepository('AppBundle:Instance')->find($instanceid);
         $instance->setModificationDate(new \DateTime());
         $surveyid = $instance->getSurveyId();
+        $code = $instance->getCode();
         $survey =  $em->getRepository('AppBundle:Survey')->find($surveyid);
         $categoryid = $survey->getCategoryId();
 
@@ -132,7 +133,7 @@ class InstanceController extends Controller
 
             $this->addFlash('OK', 'Actualización correcta');
             
-            return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid));
+            return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid, 'code'=>$code));
         }
 
         return $this->render('instances/create.html.twig', array(
@@ -154,12 +155,13 @@ class InstanceController extends Controller
         $em = $this->getDoctrine()->getManager();
         $instance = $em->getRepository('AppBundle:Instance')->find($instanceid);
         $surveyid = $instance->getSurveyId();
+        $code = $instance->getCode();
         $survey =  $em->getRepository('AppBundle:Survey')->find($surveyid);
         $categoryid = $survey->getCategoryId();
 
                 
         $em->remove($instance);
         $em->flush();
-        return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid));
+        return $this->redirectToRoute('instance_list', array('surveyid'=>$surveyid, 'categoryid'=>$categoryid, 'code'=>$code));
     }
 }

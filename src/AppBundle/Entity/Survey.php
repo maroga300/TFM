@@ -23,11 +23,6 @@ class Survey
     private $description;
 
     /**
-     * @var boolean
-     */
-    private $isActive;
-
-    /**
      * @var \DateTime
      */
     private $creationDate;
@@ -94,30 +89,6 @@ class Survey
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     *
-     * @return Survey
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
     }
 
     /**
